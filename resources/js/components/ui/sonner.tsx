@@ -1,9 +1,11 @@
 import { useFlashToast } from '@/hooks/use-flash-toast';
 import { useAppearance } from '@/hooks/use-appearance';
+import { useDirection } from "@/hooks/use-direction";
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 function Toaster({ ...props }: ToasterProps) {
     const { appearance } = useAppearance();
+    const direction = useDirection();
 
     useFlashToast();
 
@@ -11,7 +13,7 @@ function Toaster({ ...props }: ToasterProps) {
         <Sonner
             theme={appearance}
             className="toaster group"
-            position="bottom-right"
+            position={direction === "rtl" ? "bottom-left" : "bottom-right"}
             style={
                 {
                     '--normal-bg': 'var(--popover)',
