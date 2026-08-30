@@ -3,6 +3,7 @@ import { type VariantProps } from "class-variance-authority"
 import * as React from "react"
 
 import { toggleVariants } from "@/components/ui/toggle"
+import { useDirection } from "@/hooks/use-direction"
 import { cn } from "@/lib/utils"
 
 const ToggleGroupContext = React.createContext<
@@ -20,11 +21,14 @@ function ToggleGroup({
   ...props
 }: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
   VariantProps<typeof toggleVariants>) {
+  const direction = useDirection()
+
   return (
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
       data-variant={variant}
       data-size={size}
+      dir={direction}
       className={cn(
         "group/toggle-group flex items-center rounded-md data-[variant=outline]:shadow-xs",
         className
@@ -58,7 +62,7 @@ function ToggleGroupItem({
           variant: context.variant || variant,
           size: context.size || size,
         }),
-        "min-w-0 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l",
+        "min-w-0 shrink-0 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-s-0 data-[variant=outline]:first:border-s",
         className
       )}
       {...props}
